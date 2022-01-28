@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviourPun {
+public class PlayerController : MonoBehaviourPun { // IPunObservable
     public float movementSpeed = 10f;
     public GameObject cameraObject;
 
@@ -13,11 +13,14 @@ public class PlayerController : MonoBehaviourPun {
         set { _isMine = value; }
     }
 
-    private CharacterController character;
+    private Rigidbody rigidBody;
+
+    private Vector3 networkPosition;
+    private Quaternion networkRotation;
 
     // Start is called before the first frame update
     void Start() {
-        character = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
 
         if (!IsMine) {
             Destroy(cameraObject);
@@ -26,11 +29,28 @@ public class PlayerController : MonoBehaviourPun {
 
     void FixedUpdate() {
         if (!IsMine) {
+            // rigidBody.position = Vector3.MoveTowards(rigidBody.position, networkPosition, Time.fixedDeltaTime);
+            // rigidBody.rotation = Quaternion.RotateTowards(rigidBody.rotation, networkRotation, Time.fixedDeltaTime * 100.0f);
             return;
         }
 
         ApplyMovement();
     }
+
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+    //     if (stream.IsWriting) {
+    //         stream.SendNext(this.rigidBody.position);
+    //         stream.SendNext(this.rigidBody.rotation);
+    //         stream.SendNext(this.rigidBody.velocity);
+    //     } else {
+    //         networkPosition = (Vector3) stream.ReceiveNext();
+    //         networkRotation = (Quaternion) stream.ReceiveNext();
+    //         rigidBody.velocity = (Vector3) stream.ReceiveNext();
+
+    //         float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
+    //         networkPosition += (this.rigidBody.velocity * lag);
+    //     }
+    // }
 
     private void ApplyMovement() {
         var rawMoveVector = new Vector3(0, 0, 0);
@@ -42,6 +62,6 @@ public class PlayerController : MonoBehaviourPun {
 
         var moveVector = rawMoveVector.normalized * movementSpeed * Time.deltaTime;
 
-        character.Move(moveVector);
+        rigidBody.MovePosition(rigidBody.position + moveVector);
     }
 }
