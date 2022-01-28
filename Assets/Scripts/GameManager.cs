@@ -6,6 +6,11 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks {
+    public static GameManager Instance {
+        get;
+        private set;
+    }
+
     public GameObject playerPrefab;
     public Transform spawnLocation1;
     public Transform spawnLocation2;
@@ -13,14 +18,18 @@ public class GameManager : MonoBehaviourPunCallbacks {
     private bool singlePlayer = true;
 
     void Awake() {
-        if (!PhotonNetwork.IsConnected && !singlePlayer) {
-            Debug.LogError("We can't be in this scene if we're not connected to the network");
+        if (!PhotonNetwork.InRoom && !singlePlayer) {
+            Debug.LogError("We can't be in this scene if we're not a room");
         }
+
+        Instance = this;
+
+        // DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update
     void Start() {
-        if (PhotonNetwork.IsConnected) {
+        if (PhotonNetwork.InRoom) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation1.position, Quaternion.identity);
             } else {
@@ -35,6 +44,17 @@ public class GameManager : MonoBehaviourPunCallbacks {
     // Update is called once per frame
     void Update() {
 
+    }
+
+    public GameObject InstantiateObject(GameObject original, Vector3 position, Quaternion rotation) {
+        if (PhotonNetwork.InRoom) {
+            return PhotonNetwork.Instantiate(original.name, position, rotation);
+        } else if (singlePlayer) {
+            return Instantiate(original, position, rotation);
+        } else {
+            Debug.LogError("Could not instantiate object as we're not connected to the server");
+            return null;
+        }
     }
 
     public override void OnLeftRoom() {

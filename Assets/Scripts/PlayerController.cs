@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviourPun { // IPunObservable
     public float movementSpeed = 10f;
     public GameObject cameraObject;
+
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnLocation;
+    public float projectileVelocity = 700f;
 
     private bool? _isMine;
     public bool IsMine {
@@ -37,6 +42,14 @@ public class PlayerController : MonoBehaviourPun { // IPunObservable
         ApplyMovement();
     }
 
+    void Update() {
+        if (!IsMine) {
+            return;
+        }
+
+        ApplyShooting();
+    }
+
     // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
     //     if (stream.IsWriting) {
     //         stream.SendNext(this.rigidBody.position);
@@ -46,7 +59,7 @@ public class PlayerController : MonoBehaviourPun { // IPunObservable
     //         networkPosition = (Vector3) stream.ReceiveNext();
     //         networkRotation = (Quaternion) stream.ReceiveNext();
     //         rigidBody.velocity = (Vector3) stream.ReceiveNext();
-
+    //
     //         float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
     //         networkPosition += (this.rigidBody.velocity * lag);
     //     }
@@ -63,5 +76,17 @@ public class PlayerController : MonoBehaviourPun { // IPunObservable
         var moveVector = rawMoveVector.normalized * movementSpeed * Time.deltaTime;
 
         rigidBody.MovePosition(rigidBody.position + moveVector);
+    }
+
+    private void ApplyShooting() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            var projectile = GameManager.Instance.InstantiateObject(
+                projectilePrefab,
+                projectileSpawnLocation.position,
+                projectileSpawnLocation.rotation
+            );
+
+            projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
+        }
     }
 }
