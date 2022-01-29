@@ -5,12 +5,14 @@ using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour {
+public class BulletController : MonoBehaviourPun {
     public float fadeTime;
 	public float speed = 5f;
 	public int initialSegments = 3;
 	public bool controllable = false;
 	public GameObject snakeSegmentPrefab;
+
+	private TrailRenderer trail;
 
 	private int segmentsCount;
 
@@ -22,6 +24,7 @@ public class BulletController : MonoBehaviour {
 	private Vector3 moveDirection;
 
 	private List<SegmentState> segments = new List<SegmentState>(20);
+	private List<Vector3> path = new List<Vector3>();
 	private int segmentsToSpawn;
 
 	private float timeSinceLastMove = 0f;
@@ -34,7 +37,9 @@ public class BulletController : MonoBehaviour {
 
 	private void Start() {
 		this.rigidbody = this.GetComponent<Rigidbody>();
+		this.trail = this.GetComponent<TrailRenderer>();
 		this.segmentsToSpawn = this.initialSegments;
+		this.segmentsCount = this.initialSegments;
 
 		if (controllable) {
 			GameManager.Instance.playerInputs.Player.MoveSnake.performed += this.OnMoveSnakeInput;
@@ -42,6 +47,8 @@ public class BulletController : MonoBehaviour {
     }
 
 	private void Update() {
+		this.trail.time = this.segmentsCount * 0.5f / this.speed;
+
 		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
@@ -51,11 +58,35 @@ public class BulletController : MonoBehaviour {
 			return;
 		}
 
-		this.UpdateSegmentPositions();
+		//this.UpdateSegmentPositions();
 	}
 
+	private void FixedUpdate() {
+		if (!controllable || GameManager.Instance.GameEnded) {
+			return;
+		}
+
+		if (isDead) {
+			this.rigidbody.velocity = Vector3.zero;
+			return;
+		}
+
+		if (this.moveDirection != Vector3.zero) {
+			this.rigidbody.velocity = this.moveDirection.normalized * this.speed;
+			this.rigidbody.MoveRotation(Quaternion.LookRotation(this.moveDirection, Vector3.up));
+		}
+
+		//this.UpdateSegmentPositions2();
+	}
+
+	private void UpdateSegmentPositions2() {
+
+	}
+
+	[PunRPC]
 	public void Extend(int segmentCount) {
 		this.segmentsToSpawn += segmentCount;
+		this.segmentsCount += segmentCount;
 	}
 
 	private void FadeToDeath() {
@@ -109,22 +140,6 @@ public class BulletController : MonoBehaviour {
 			transform = segment.transform,
 			visuals = segment.GetComponent<SnekVisuals>()
 		});
-	}
-
-	private void FixedUpdate() {
-		if (!controllable || GameManager.Instance.GameEnded) {
-			return;
-		}
-
-		if (isDead) {
-			this.rigidbody.velocity = Vector3.zero;
-			return;
-		}
-
-		if (this.moveDirection != Vector3.zero) {
-			this.rigidbody.velocity = this.moveDirection.normalized * this.speed;
-			this.rigidbody.MoveRotation(Quaternion.LookRotation(this.moveDirection, Vector3.up));
-		}
 	}
 
 	private void OnMoveSnakeInput(UnityEngine.InputSystem.InputAction.CallbackContext obj) {

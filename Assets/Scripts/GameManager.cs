@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviourPunCallbacks {
         private set;
     } = false;
 
+    public bool IsMaster {
+        get {
+            return (!PhotonNetwork.InRoom && singlePlayer) || PhotonNetwork.IsMasterClient;
+        }
+    }
+
 	void Awake() {
 		if (!PhotonNetwork.InRoom && !singlePlayer) {
 			Debug.LogError("We can't be in this scene if we're not a room");

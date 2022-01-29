@@ -82,6 +82,7 @@ public class TankController : MonoBehaviourPun {
         }
 	}
 
+    [PunRPC]
 	public void Heal(float healAmount) {
 		health = Mathf.Clamp(health + healAmount, 0, maxHealth);
 	}
@@ -97,8 +98,11 @@ public class TankController : MonoBehaviourPun {
         Destroy(explosion, 5);
     }
 
-    // TODO: Networking for this?
 	private void OnTriggerEnter(Collider other) {
+        if (!IsMine) {
+            return;
+        }
+
 		var pickup = other.GetComponentInParent<IPickup>();
 		if (pickup != null) {
 			pickup.ApplyPickup(this);
