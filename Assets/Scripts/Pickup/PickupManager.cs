@@ -33,7 +33,7 @@ public class PickupManager : MonoBehaviour
         shuffledSpawners.Shuffle();
 
         for (int i = 0; i < amount; i++) {
-            spawners[i].Spawn();
+            shuffledSpawners[i].Spawn();
         }
     }
 }
