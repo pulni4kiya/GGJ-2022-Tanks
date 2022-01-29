@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Ground
   m_Shader: {fileID: -6465566751694194690, guid: 3dca97f4397020847a29081b7cbf7e5e, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -112,8 +112,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_f26108374b874f9f9ad3b214cce31548: {r: 0.21495031, g: 0.6603774, b: 0.19001423, a: 0}
-    - Color_f26108374b874f9f9ad3b214cce31548_1: {r: 0.2798149, g: 0.28700444, b: 0.4528302, a: 0}
+    - Color_f26108374b874f9f9ad3b214cce31548: {r: 0.7056583, g: 0.8396226, b: 0.5742702, a: 0}
+    - Color_f26108374b874f9f9ad3b214cce31548_1: {r: 0.46466786, g: 0.745283, b: 0.39021894, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -129,6 +129,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   version: 4
