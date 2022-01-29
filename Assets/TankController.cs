@@ -54,7 +54,7 @@ public class TankController : MonoBehaviourPun {
 		bulletController.Init(projectileSpawnLocation.position, this.transform.forward);
     }
 
-	internal void TakeDamage(float damage, Vector3 hitLocation) {
+	public void TakeDamage(float damage, Vector3 hitLocation) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health > 0) {
@@ -66,7 +66,11 @@ public class TankController : MonoBehaviourPun {
         }
 	}
 
-    private void SpawnBoom(Vector3 position, float scale) {
+	public void Heal(float healAmount) {
+		health = Mathf.Clamp(health + healAmount, 0, maxHealth);
+	}
+
+	private void SpawnBoom(Vector3 position, float scale) {
         var explosion = Instantiate(
             explosionPrefab,
             position,
@@ -76,4 +80,11 @@ public class TankController : MonoBehaviourPun {
         explosion.transform.localScale *= scale;
         Destroy(explosion, 5);
     }
+
+	private void OnTriggerEnter(Collider other) {
+		var pickup = other.GetComponentInParent<IPickup>();
+		if (pickup != null) {
+			pickup.ApplyPickup(this);
+		}
+	}
 }

@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTransform: {fileID: 4621749865370576828}
-  spawnedPickup: {fileID: 8154786714259882262, guid: 53b78966344f804458896f14e54044b6, type: 3}
   spawnOnStart: 0
+  spawnedPickup: {fileID: 8154786714259882262, guid: 96b5da4de926a5540abee463dc7ad581, type: 3}
