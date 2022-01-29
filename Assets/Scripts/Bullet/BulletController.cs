@@ -118,7 +118,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter(Collision collision) {
-		if (isDead) {
+		if (isDead || !controllable) {
 			return;
 		}
 
