@@ -54,7 +54,12 @@ public class TankController : MonoBehaviourPun {
 		bulletController.Init(projectileSpawnLocation.position, this.transform.forward);
     }
 
-	internal void TakeDamage(float damage, Vector3 hitLocation) {
+    public void ControlledTakeDamage(float damage, Vector3 hitLocation) {
+        photonView.RPC("TakeDamage", RpcTarget.All, new object[] { damage, hitLocation });
+    }
+
+    [PunRPC]
+	public void TakeDamage(float damage, Vector3 hitLocation) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health > 0) {

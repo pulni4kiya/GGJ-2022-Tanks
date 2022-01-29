@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour {
@@ -56,9 +57,9 @@ public class BulletController : MonoBehaviour {
 
 	private void DestroySnake() {
 		foreach (var s in this.segments) {
-			GameObject.Destroy(s.transform.gameObject);
+			GameManager.Instance.DestroyObject(s.transform.gameObject);
 		}
-		GameObject.Destroy(this.gameObject);
+		GameManager.Instance.DestroyObject(this.gameObject);
 	}
 
 	private void UpdateSegmentPositions() {
@@ -84,7 +85,11 @@ public class BulletController : MonoBehaviour {
 	}
 
 	private void SpawnSegment() {
-		var segment = GameObject.Instantiate(this.snakeSegmentPrefab, this.headPosition, Quaternion.identity);
+		var segment = GameManager.Instance.InstantiateObject(
+			this.snakeSegmentPrefab,
+			this.headPosition,
+			Quaternion.identity
+		);
 		this.segmentsCount++;
 		this.segments.Add(new SegmentState() {
 			transform = segment.transform
@@ -127,7 +132,7 @@ public class BulletController : MonoBehaviour {
 
 		if (tank != null) {
 			var damage = Mathf.Pow(this.segmentsCount, 1.5f);
-			tank.TakeDamage(damage, collisionLocation);
+			tank.ControlledTakeDamage(damage, collisionLocation);
 		}
 
 		this.isDead = true;

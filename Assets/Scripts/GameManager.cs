@@ -54,7 +54,11 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     }
 
-    public GameObject InstantiateObject(GameObject original, Vector3 position, Quaternion rotation) {
+    public GameObject InstantiateObject(
+        GameObject original,
+        Vector3 position,
+        Quaternion rotation
+    ) {
         if (PhotonNetwork.InRoom) {
             return PhotonNetwork.Instantiate(original.name, position, rotation);
         } else if (singlePlayer) {
@@ -62,6 +66,16 @@ public class GameManager : MonoBehaviourPunCallbacks {
         } else {
             Debug.LogError("Could not instantiate object as we're not connected to the server");
             return null;
+        }
+    }
+
+    public void DestroyObject(GameObject gameObject) {
+        if (PhotonNetwork.InRoom) {
+            PhotonNetwork.Destroy(gameObject);
+        } else if (singlePlayer) {
+            Destroy(gameObject);
+        } else {
+            Debug.LogError("Could not destroy object as we're not connected to the server");
         }
     }
 
