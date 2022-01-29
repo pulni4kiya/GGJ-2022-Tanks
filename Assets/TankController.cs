@@ -12,6 +12,8 @@ public class TankController : MonoBehaviourPun {
 
     public PlayerActionEvents actionEvents;
 
+    public float health = 1f;
+
     private bool? _isMine;
     public bool IsMine {
         get { return _isMine == true || photonView.IsMine; }
@@ -46,10 +48,13 @@ public class TankController : MonoBehaviourPun {
 		var bulletController = projectile.GetComponent<BulletController>();
 		bulletController.controllable = true;
 		bulletController.Init(this.transform.forward);
-        //projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
     }
 
 	internal void TakeDamage(float damage) {
+        health -= damage;
 
+        if (health <= 0) {
+            // TODO: We dead bro;
+        }
 	}
 }

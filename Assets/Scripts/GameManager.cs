@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
         private set;
     }
 
+    public Camera mainCamera;
+
     public GameObject playerPrefab;
     public Transform spawnLocation1;
     public Transform spawnLocation2;
