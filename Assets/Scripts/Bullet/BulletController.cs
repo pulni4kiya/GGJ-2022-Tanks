@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
     public float timeToLive;
 	public float speed = 5f;
+	public bool controllable = false;
 
 	private new Rigidbody rigidbody;
 
@@ -13,9 +15,11 @@ public class BulletController : MonoBehaviour {
 	private void Start() {
 		this.rigidbody = this.GetComponent<Rigidbody>();
 
-		GameManager.Instance.playerInputs.Player.MoveSnake.performed += this.OnMoveSnakeInput;
+		if (controllable) {
+			GameManager.Instance.playerInputs.Player.MoveSnake.performed += this.OnMoveSnakeInput;
+		}
 
-        Object.Destroy(gameObject, timeToLive);
+        UnityEngine.Object.Destroy(gameObject, timeToLive);
     }
 
 	private void FixedUpdate() {

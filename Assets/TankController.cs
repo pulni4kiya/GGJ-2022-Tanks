@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.Demo.Asteroids;
 using UnityEngine;
 
 public class TankController : MonoBehaviourPun {
@@ -41,6 +42,7 @@ public class TankController : MonoBehaviourPun {
             projectileSpawnLocation.rotation
         );
 
+        projectile.GetComponent<BulletController>().controllable = true;
         projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
     }
 }
