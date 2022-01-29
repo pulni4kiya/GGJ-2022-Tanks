@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 
@@ -80,16 +81,20 @@ public class BulletController : MonoBehaviour {
 
 			this.headPosition += this.moveDirection.normalized * this.Size;
 
+			if (this.segments.Count > 0) {
+				this.segments.Last().visuals.ShowBody();
+			}
 			if (this.segmentsToSpawn > 0) {
 				this.segmentsToSpawn--;
-
 				this.SpawnSegment();
 			} else {
+
 				var seg = this.segments[0];
 				this.segments.RemoveAt(0);
 				this.segments.Add(seg);
 				seg.transform.position = this.headPosition;
 			}
+			this.segments.Last().visuals.ShowHead(this.moveDirection);
 		}
 	}
 
@@ -101,7 +106,8 @@ public class BulletController : MonoBehaviour {
 		);
 		this.segmentsCount++;
 		this.segments.Add(new SegmentState() {
-			transform = segment.transform
+			transform = segment.transform,
+			visuals = segment.GetComponent<SnekVisuals>()
 		});
 	}
 
@@ -160,5 +166,6 @@ public class BulletController : MonoBehaviour {
 
 	private struct SegmentState {
 		public Transform transform;
+		public SnekVisuals visuals;
 	}
 }
