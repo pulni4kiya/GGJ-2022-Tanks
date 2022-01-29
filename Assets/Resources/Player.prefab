@@ -327,7 +327,8 @@ MonoBehaviour:
   projectileSpawnLocation: {fileID: 1617519374723095878}
   projectileVelocity: 700
   actionEvents: {fileID: 3800051520757331595}
-  health: 1
+  maxHealth: 100
+  health: 100
 --- !u!114 &3006817848387695403
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour {
 	public bool controllable = false;
 	public TrailRenderer trail;
 
-	private float size;
+	private float size = 5;
 	private bool isDead = false;
 
 	private new Rigidbody rigidbody;

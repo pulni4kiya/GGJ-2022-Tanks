@@ -9,6 +9,9 @@ public class TankIndicators : MonoBehaviour {
     void Update() {
         transform.rotation = Quaternion.identity;
 
-        healthIndicatorForeground.anchorMax = new Vector2(Mathf.Clamp(tankController.health, 0, 1), 1f);
+        healthIndicatorForeground.anchorMax = new Vector2(
+            Mathf.Clamp(tankController.health, 0, tankController.maxHealth) / tankController.maxHealth,
+            1f
+        );
     }
 }

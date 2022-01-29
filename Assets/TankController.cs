@@ -12,7 +12,8 @@ public class TankController : MonoBehaviourPun {
 
     public PlayerActionEvents actionEvents;
 
-    public float health = 1f;
+    public float maxHealth = 100f;
+    public float health = 100f;
 
     private bool? _isMine;
     public bool IsMine {
@@ -51,7 +52,7 @@ public class TankController : MonoBehaviourPun {
     }
 
 	internal void TakeDamage(float damage) {
-        health -= damage;
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health <= 0) {
             // TODO: We dead bro;
