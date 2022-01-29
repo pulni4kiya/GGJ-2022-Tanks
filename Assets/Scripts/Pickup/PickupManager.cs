@@ -16,7 +16,7 @@ public class PickupManager : MonoBehaviour
     private List<PickupSpawner> spawners;
 
     private void Start() {
-        if (spawnOnStart) {
+        if (spawnOnStart && GameManager.Instance.IsMaster) {
             SpawnRandomAmount();
         }
     }

@@ -20,6 +20,6 @@ public class PickupSpawner : MonoBehaviour
     }
 
     public void Spawn() {
-        Instantiate(spawnedPickup, myTransform.position, myTransform.rotation, myTransform);
+        GameManager.Instance.InstantiateObject(spawnedPickup, myTransform.position, myTransform.rotation);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour {
+public class BulletController : MonoBehaviourPun {
     public float fadeTime;
 	public float speed = 5f;
 	public int initialSegments = 3;
@@ -83,6 +83,7 @@ public class BulletController : MonoBehaviour {
 
 	}
 
+	[PunRPC]
 	public void Extend(int segmentCount) {
 		this.segmentsToSpawn += segmentCount;
 		this.segmentsCount += segmentCount;

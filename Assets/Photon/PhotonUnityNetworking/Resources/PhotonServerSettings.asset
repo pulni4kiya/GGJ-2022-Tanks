@@ -40,6 +40,8 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - TakeDamage
+  - Extend
+  - Heal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
