@@ -6,13 +6,31 @@ public class FoodPickup : MonoBehaviour, IPickup {
 	public float healAmount;
 	public int segmentCount;
 
+	public System.Action OnPickupCollected;
+
 	public void ApplyPickup(TankController tank) {
-		tank.Heal(this.healAmount);
-		GameObject.Destroy(this.gameObject);
+		if (enabled) {
+			tank.Heal(this.healAmount);
+			Hide();
+			//GameObject.Destroy(this.gameObject);
+			OnPickupCollected?.Invoke();
+		}
 	}
 
 	public void ApplyPickup(BulletController bullet) {
-		bullet.Extend(this.segmentCount);
-		GameObject.Destroy(this.gameObject);
+		if (enabled) {
+			bullet.Extend(this.segmentCount);
+			Hide();
+			//GameObject.Destroy(this.gameObject);
+			OnPickupCollected?.Invoke();
+		}
+	}
+
+	public void Appear() {
+		gameObject.SetActive(true);
+	}
+
+	public void Hide() {
+		gameObject.SetActive(false);
 	}
 }

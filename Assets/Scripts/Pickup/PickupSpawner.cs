@@ -8,10 +8,19 @@ public class PickupSpawner : MonoBehaviour
     private Transform myTransform;
 
     [SerializeField]
-    private GameObject spawnedPickup;
+    private FoodPickup prefabToSpawn;
+
+    [SerializeField]
+    private FoodPickup spawnedPickup;
+
+    [SerializeField]
+    private bool isPickupNotYetCollected;
+    public bool IsPickupNotYetCollected { get { return isPickupNotYetCollected; } }
 
     [SerializeField]
     private bool spawnOnStart;
+
+    public System.Action OnPickupCollected;
 
     private void Start() {
         if (spawnOnStart) {
@@ -20,6 +29,21 @@ public class PickupSpawner : MonoBehaviour
     }
 
     public void Spawn() {
-        Instantiate(spawnedPickup, myTransform.position, myTransform.rotation, myTransform);
+        if (spawnedPickup == false) {
+            spawnedPickup = Instantiate(prefabToSpawn, myTransform.position, myTransform.rotation, myTransform);
+        }
+        
+        spawnedPickup.Appear();
+        spawnedPickup.OnPickupCollected += ReceiveOnPickupCollected;
+        isPickupNotYetCollected = true;
+    }
+
+    public void ReceiveOnPickupCollected() {
+        isPickupNotYetCollected = false;
+        OnPickupCollected?.Invoke();
+    }
+
+    private void OnDestroy() {
+        spawnedPickup.OnPickupCollected -= ReceiveOnPickupCollected;
     }
 }

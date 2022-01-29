@@ -33,7 +33,32 @@ public class PickupManager : MonoBehaviour
         shuffledSpawners.Shuffle();
 
         for (int i = 0; i < amount; i++) {
-            shuffledSpawners[i].Spawn();
+            if (shuffledSpawners[i].IsPickupNotYetCollected == false) {
+                shuffledSpawners[i].Spawn();
+                shuffledSpawners[i].OnPickupCollected += OnPickupCollected;
+            }
+        }
+    }
+
+    public void OnPickupCollected() {
+        if (GetAreAllPickupsCollected()) {
+            SpawnRandomAmount();
+        }
+    }
+
+    private bool GetAreAllPickupsCollected() {
+        for (int i = 0; i < spawners.Count; i++) {
+            if (spawners[i].IsPickupNotYetCollected == true) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void OnDestroy() {
+        for (int i = 0; i < spawners.Count; i++) {
+            spawners[i].OnPickupCollected -= OnPickupCollected; ;
         }
     }
 }
