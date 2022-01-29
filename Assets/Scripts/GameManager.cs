@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourPunCallbacks {
     public static GameManager Instance {
@@ -20,7 +21,17 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
 	public PlayerInputs playerInputs;
 
+    public GameObject victoryScreen;
+    public GameObject defeatScreen;
+
+    public List<Button> mainMenuButtons;
+
     private bool singlePlayer = true;
+
+    public bool GameEnded {
+        get;
+        private set;
+    } = false;
 
 	void Awake() {
 		if (!PhotonNetwork.InRoom && !singlePlayer) {
@@ -31,8 +42,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
 		playerInputs = new PlayerInputs();
 		playerInputs.Player.MoveSnake.Enable();
-
-		// DontDestroyOnLoad(this);
 	}
 
     // Start is called before the first frame update
@@ -49,6 +58,14 @@ public class GameManager : MonoBehaviourPunCallbacks {
             var player = Instantiate(playerPrefab, spawnLocation1.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
         }
+
+        foreach (var button in mainMenuButtons) {
+            button.onClick.AddListener(BackToMenu);
+        }
+    }
+
+    private void BackToMenu() {
+        SceneManager.LoadScene("Menu");
     }
 
     // Update is called once per frame
@@ -87,5 +104,23 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     public override void OnPlayerLeftRoom(Player otherPlayer) {
         Debug.Log("A player has left the room");
+    }
+
+    public void DeclareVictory() {
+        GameEnded = true;
+
+        victoryScreen.SetActive(true);
+        defeatScreen.SetActive(false);
+
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public void DeclareDefeat() {
+        GameEnded = true;
+
+        defeatScreen.SetActive(true);
+        victoryScreen.SetActive(false);
+
+        PhotonNetwork.LeaveRoom();
     }
 }
