@@ -21,6 +21,12 @@ public class TankController : MonoBehaviourPun {
     void Start() {
         rigidBody = GetComponent<Rigidbody>();
 
+        if (!IsMine) {
+            GetComponent<TankMovement>().enabled = false;
+            GetComponent<TankFacing>().enabled = false;
+            return;
+        }
+
         actionEvents.OnFireInput += Shoot;
     }
 
