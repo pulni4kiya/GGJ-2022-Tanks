@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -45,4 +46,8 @@ public class TankController : MonoBehaviourPun {
         projectile.GetComponent<BulletController>().controllable = true;
         projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
     }
+
+	internal void TakeDamage(float damage) {
+
+	}
 }

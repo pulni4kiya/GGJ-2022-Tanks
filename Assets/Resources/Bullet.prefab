@@ -159,6 +159,7 @@ MonoBehaviour:
   timeToLive: 5
   speed: 5
   controllable: 0
+  trail: {fileID: 5354686940399862325}
 --- !u!136 &4060287844536513397
 CapsuleCollider:
   m_ObjectHideFlags: 0

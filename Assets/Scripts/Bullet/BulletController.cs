@@ -7,6 +7,10 @@ public class BulletController : MonoBehaviour {
     public float timeToLive;
 	public float speed = 5f;
 	public bool controllable = false;
+	public TrailRenderer trail;
+
+	private float size;
+	private bool isDead = false;
 
 	private new Rigidbody rigidbody;
 
@@ -18,11 +22,21 @@ public class BulletController : MonoBehaviour {
 		if (controllable) {
 			GameManager.Instance.playerInputs.Player.MoveSnake.performed += this.OnMoveSnakeInput;
 		}
-
-        UnityEngine.Object.Destroy(gameObject, timeToLive);
     }
 
+	private void Update() {
+		this.timeToLive -= Time.deltaTime;
+		if (this.timeToLive < 0f) {
+			GameObject.Destroy(this.gameObject);
+		}
+	}
+
 	private void FixedUpdate() {
+		if (isDead) {
+			this.rigidbody.velocity = Vector3.zero;
+			return;
+		}
+
 		if (this.moveDirection != Vector3.zero) {
 			this.rigidbody.velocity = this.moveDirection.normalized * this.speed;
 			this.rigidbody.MoveRotation(Quaternion.LookRotation(this.moveDirection, Vector3.up));
@@ -36,5 +50,21 @@ public class BulletController : MonoBehaviour {
 		if (dir != -this.moveDirection) {
 			this.moveDirection = dir;
 		}
+	}
+
+	private void OnCollisionEnter(Collision collision) {
+		if (isDead) {
+			return;
+		}
+
+		var tank = collision.collider.GetComponent<TankController>();
+
+		if (tank != null) {
+			var damage = Mathf.Pow(this.size, 1.5f);
+			tank.TakeDamage(damage);
+		}
+
+		this.isDead = true;
+		this.timeToLive = trail.time;
 	}
 }
