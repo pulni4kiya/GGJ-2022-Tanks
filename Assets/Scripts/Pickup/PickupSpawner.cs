@@ -24,7 +24,7 @@ public class PickupSpawner : MonoBehaviour
     public System.Action OnPickupCollected;
 
     private void Start() {
-        if (spawnOnStart) {
+        if (spawnOnStart && GameManager.Instance.IsMaster) {
             Spawn();
         }
     }
@@ -39,7 +39,7 @@ public class PickupSpawner : MonoBehaviour
         } else {
             spawnedPickup.Appear();
         }
-        
+
         spawnedPickup.OnPickupCollected += ReceiveOnPickupCollected;
         isPickupNotYetCollected = true;
     }
@@ -50,6 +50,8 @@ public class PickupSpawner : MonoBehaviour
     }
 
     private void OnDestroy() {
-        spawnedPickup.OnPickupCollected -= ReceiveOnPickupCollected;
+        if (spawnedPickup) {
+            spawnedPickup.OnPickupCollected -= ReceiveOnPickupCollected;
+        }
     }
 }

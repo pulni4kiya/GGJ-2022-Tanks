@@ -58,7 +58,7 @@ public class PickupManager : MonoBehaviour
 
     private void OnDestroy() {
         for (int i = 0; i < spawners.Count; i++) {
-            spawners[i].OnPickupCollected -= OnPickupCollected; ;
+            spawners[i].OnPickupCollected -= OnPickupCollected;
         }
     }
 }
