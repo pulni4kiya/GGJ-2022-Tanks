@@ -326,7 +326,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2193915993325977284, guid: 24e2ffaa9095c7041bc2e6db48ed2468, type: 3}
   projectileSpawnLocation: {fileID: 1617519374723095878}
-  projectileVelocity: 700
   explosionPrefab: {fileID: 2813435664657194405, guid: 00edfd0fe3752684eb513a39a04f85ea, type: 3}
   explosionSpawnLocation: {fileID: 2408532867010690113}
   actionEvents: {fileID: 3800051520757331595}

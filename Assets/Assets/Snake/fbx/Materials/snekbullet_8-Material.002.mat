@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Wall
-  m_Shader: {fileID: -6465566751694194690, guid: a67dce125f7b38944abdaafb80fb1ed6, type: 3}
+  m_Name: snekbullet_8-Material.002
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -76,10 +76,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_a29e1afbd06446259a7c7dad42d14709: 100
-    - Vector1_cea1a07030614763a3dfc0620781487b: -0.5
-    - Vector1_d6799b013da04de693966c0a2f500c6f: 0.25
-    - Vector1_d7763946462f4a0a884346e51a466fa7: 10
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -99,7 +95,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -107,14 +103,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_4d57962cbca04ce490e42940350249b8: {r: 0.54901963, g: 0.47273955, b: 0.1607843, a: 1}
-    - Vector3_075c28d796c64d069999348df20b2ccf: {r: 0.2, g: 0.2, b: 0, a: 0}
-    - _BaseColor: {r: 0.48521677, g: 0.5471698, b: 0.16260235, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.8000001, g: 0.0012378719, b: 0.003048603, a: 1}
+    - _Color: {r: 0.8000001, g: 0.0012378719, b: 0.003048603, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &5130303914825853098
+--- !u!114 &8745810808694721668
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

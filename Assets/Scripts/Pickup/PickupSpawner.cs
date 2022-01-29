@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,10 +31,15 @@ public class PickupSpawner : MonoBehaviour
 
     public void Spawn() {
         if (spawnedPickup == false) {
-            spawnedPickup = Instantiate(prefabToSpawn, myTransform.position, myTransform.rotation, myTransform);
+            spawnedPickup = GameManager.Instance.InstantiateObject(prefabToSpawn.gameObject, myTransform.position, myTransform.rotation).GetComponent<FoodPickup>();
+        }
+
+        if (PhotonNetwork.InLobby) {
+            spawnedPickup.photonView.RPC("Appear", RpcTarget.All);
+        } else {
+            spawnedPickup.Appear();
         }
         
-        spawnedPickup.Appear();
         spawnedPickup.OnPickupCollected += ReceiveOnPickupCollected;
         isPickupNotYetCollected = true;
     }
