@@ -54,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193915993325977284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -156,10 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5791a0d9f6942a2468547b00f388ad02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToLive: 5
+  fadeTime: 1
   speed: 5
+  initialSegments: 10
   controllable: 0
-  trail: {fileID: 5354686940399862325}
+  snakeSegmentPrefab: {fileID: 2685103774045635054, guid: 472ea57af0afd1141ab127b773955498, type: 3}
 --- !u!136 &4060287844536513397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -182,7 +183,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193915993325977284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
