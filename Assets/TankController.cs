@@ -58,21 +58,22 @@ public class TankController : MonoBehaviourPun {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health > 0) {
-            SpawnBoom(hitLocation);
+            SpawnBoom(hitLocation, 0.5f);
         } else if (health <= 0) {
-            SpawnBoom(explosionSpawnLocation.position);
+            SpawnBoom(explosionSpawnLocation.position, 1f);
 
             // TODO: We dead bro: destroy tank, declare game end
         }
 	}
 
-    private void SpawnBoom(Vector3 position) {
+    private void SpawnBoom(Vector3 position, float scale) {
         var explosion = Instantiate(
             explosionPrefab,
             position,
             Quaternion.identity,
             parent: transform
         );
+        explosion.transform.localScale *= scale;
         Destroy(explosion, 5);
     }
 }
