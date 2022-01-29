@@ -10,6 +10,9 @@ public class TankController : MonoBehaviourPun {
     public Transform projectileSpawnLocation;
     public float projectileVelocity = 700f;
 
+    public GameObject explosionPrefab;
+    public Transform explosionSpawnLocation;
+
     public PlayerActionEvents actionEvents;
 
     public float maxHealth = 100f;
@@ -51,11 +54,25 @@ public class TankController : MonoBehaviourPun {
 		bulletController.Init(this.transform.forward);
     }
 
-	internal void TakeDamage(float damage) {
+	internal void TakeDamage(float damage, Vector3 hitLocation) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
-        if (health <= 0) {
-            // TODO: We dead bro;
+        if (health > 0) {
+            SpawnBoom(hitLocation);
+        } else if (health <= 0) {
+            SpawnBoom(explosionSpawnLocation.position);
+
+            // TODO: We dead bro: destroy tank, declare game end
         }
 	}
+
+    private void SpawnBoom(Vector3 position) {
+        var explosion = Instantiate(
+            explosionPrefab,
+            position,
+            Quaternion.identity,
+            parent: transform
+        );
+        Destroy(explosion, 5);
+    }
 }

@@ -61,11 +61,12 @@ public class BulletController : MonoBehaviour {
 			return;
 		}
 
+		var collisionLocation = collision.contacts[0].point;
 		var tank = collision.collider.GetComponent<TankController>();
 
 		if (tank != null) {
 			var damage = Mathf.Pow(this.size, 1.5f);
-			tank.TakeDamage(damage);
+			tank.TakeDamage(damage, collisionLocation);
 		}
 
 		this.isDead = true;
