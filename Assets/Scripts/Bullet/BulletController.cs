@@ -32,6 +32,7 @@ public class BulletController : MonoBehaviour {
 	private void Start() {
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.segmentsToSpawn = this.initialSegments;
+
 		if (controllable) {
 			GameManager.Instance.playerInputs.Player.MoveSnake.performed += this.OnMoveSnakeInput;
 		}
@@ -84,7 +85,7 @@ public class BulletController : MonoBehaviour {
 
 	private void SpawnSegment() {
 		var segment = GameObject.Instantiate(this.snakeSegmentPrefab, this.headPosition, Quaternion.identity);
-
+		this.segmentsCount++;
 		this.segments.Add(new SegmentState() {
 			transform = segment.transform
 		});
@@ -121,11 +122,12 @@ public class BulletController : MonoBehaviour {
 			return;
 		}
 
+		var collisionLocation = collision.contacts[0].point;
 		var tank = collision.collider.GetComponent<TankController>();
 
 		if (tank != null) {
 			var damage = Mathf.Pow(this.segmentsCount, 1.5f);
-			tank.TakeDamage(damage);
+			tank.TakeDamage(damage, collisionLocation);
 		}
 
 		this.isDead = true;

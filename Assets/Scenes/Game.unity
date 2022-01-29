@@ -14669,6 +14669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1467048254}
   - component: {fileID: 1467048253}
+  - component: {fileID: 1467048255}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -14688,6 +14689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b51f208892cce4baf37d4d8a7dd42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 629517503}
   playerPrefab: {fileID: 3611304986563697691, guid: 0a315ce16ff029544a3e00ec23405309, type: 3}
   spawnLocation1: {fileID: 1366210835}
   spawnLocation2: {fileID: 2076223869}
@@ -14705,6 +14707,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1467048255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467048252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11fabf899ea74a488e0aa22b2967610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPercentageToSpawn: 0.2
+  maxPercentageToSpawn: 0.6
+  spawnOnStart: 0
+  spawners: []
 --- !u!1001 &1474357614
 PrefabInstance:
   m_ObjectHideFlags: 0
