@@ -41,7 +41,7 @@ public class BulletController : MonoBehaviour {
     }
 
 	private void Update() {
-		if (!controllable) {
+		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
 
@@ -106,7 +106,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if (!controllable) {
+		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
 

@@ -8,7 +8,6 @@ using UnityEngine;
 public class TankController : MonoBehaviourPun {
     public GameObject projectilePrefab;
     public Transform projectileSpawnLocation;
-    public float projectileVelocity = 700f;
 
     public GameObject explosionPrefab;
     public Transform explosionSpawnLocation;
@@ -43,6 +42,10 @@ public class TankController : MonoBehaviourPun {
     }
 
     private void Shoot() {
+        if (GameManager.Instance.GameEnded) {
+            return;
+        }
+
         var projectile = GameManager.Instance.InstantiateObject(
             projectilePrefab,
             projectileSpawnLocation.position,
@@ -55,7 +58,11 @@ public class TankController : MonoBehaviourPun {
     }
 
     public void ControlledTakeDamage(float damage, Vector3 hitLocation) {
-        photonView.RPC("TakeDamage", RpcTarget.All, new object[] { damage, hitLocation });
+        if (PhotonNetwork.InRoom) {
+            photonView.RPC("TakeDamage", RpcTarget.All, new object[] { damage, hitLocation });
+        } else {
+            TakeDamage(damage, hitLocation);
+        }
     }
 
     [PunRPC]
@@ -67,7 +74,11 @@ public class TankController : MonoBehaviourPun {
         } else if (health <= 0) {
             SpawnBoom(explosionSpawnLocation.position, 1f);
 
-            // TODO: We dead bro: destroy tank, declare game end
+            if (IsMine) {
+                GameManager.Instance.DeclareDefeat();
+            } else {
+                GameManager.Instance.DeclareVictory();
+            }
         }
 	}
 
