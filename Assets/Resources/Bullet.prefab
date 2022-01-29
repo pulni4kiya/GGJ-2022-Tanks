@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 1
-  speed: 5
+  speed: 3
   initialSegments: 3
   controllable: 0
   snakeSegmentPrefab: {fileID: 2685103774045635054, guid: 472ea57af0afd1141ab127b773955498, type: 3}
@@ -292,7 +292,7 @@ MonoBehaviour:
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 5
-    ExtrapolateOption: 0
+    ExtrapolateOption: 1
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1

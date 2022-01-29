@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     // Start is called before the first frame update
     void Start() {
+        PhotonNetwork.SerializationRate = 30;
+
         if (PhotonNetwork.InRoom) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation1.position, Quaternion.identity);
