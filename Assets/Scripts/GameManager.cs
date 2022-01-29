@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviourPunCallbacks {
     public static GameManager Instance {
@@ -15,17 +16,22 @@ public class GameManager : MonoBehaviourPunCallbacks {
     public Transform spawnLocation1;
     public Transform spawnLocation2;
 
+	public PlayerInputs playerInputs;
+
     private bool singlePlayer = true;
 
-    void Awake() {
-        if (!PhotonNetwork.InRoom && !singlePlayer) {
-            Debug.LogError("We can't be in this scene if we're not a room");
-        }
+	void Awake() {
+		if (!PhotonNetwork.InRoom && !singlePlayer) {
+			Debug.LogError("We can't be in this scene if we're not a room");
+		}
 
-        Instance = this;
+		Instance = this;
 
-        // DontDestroyOnLoad(this);
-    }
+		playerInputs = new PlayerInputs();
+		playerInputs.Player.MoveSnake.Enable();
+
+		// DontDestroyOnLoad(this);
+	}
 
     // Start is called before the first frame update
     void Start() {
