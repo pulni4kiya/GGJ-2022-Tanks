@@ -42,6 +42,10 @@ public class BulletController : MonoBehaviour {
     }
 
 	private void Update() {
+		if (!controllable) {
+			return;
+		}
+
 		if (isDead) {
 			this.FadeToDeath();
 			return;
@@ -108,6 +112,10 @@ public class BulletController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
+		if (!controllable) {
+			return;
+		}
+
 		if (isDead) {
 			this.rigidbody.velocity = Vector3.zero;
 			return;

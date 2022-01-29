@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: PickupSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTransform: {fileID: 4621749865370576828}
-  spawnOnStart: 0
   spawnedPickup: {fileID: 8154786714259882262, guid: 96b5da4de926a5540abee463dc7ad581, type: 3}
+  spawnOnStart: 0
