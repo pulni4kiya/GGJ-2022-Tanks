@@ -49,7 +49,7 @@ public class BulletController : MonoBehaviour {
 	private void Update() {
 		this.trail.time = this.segmentsCount * 0.5f / this.speed;
 
-		if (!controllable) {
+		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
 
@@ -62,7 +62,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if (!controllable) {
+		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
 
