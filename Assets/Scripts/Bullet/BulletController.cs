@@ -52,6 +52,10 @@ public class BulletController : MonoBehaviour {
 		}
 	}
 
+	public void Init(Vector3 forward) {
+		this.moveDirection = forward;
+	}
+
 	private void OnCollisionEnter(Collision collision) {
 		if (isDead) {
 			return;

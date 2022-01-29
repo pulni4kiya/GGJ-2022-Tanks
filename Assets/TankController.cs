@@ -43,8 +43,10 @@ public class TankController : MonoBehaviourPun {
             projectileSpawnLocation.rotation
         );
 
-        projectile.GetComponent<BulletController>().controllable = true;
-        projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
+		var bulletController = projectile.GetComponent<BulletController>();
+		bulletController.controllable = true;
+		bulletController.Init(this.transform.forward);
+        //projectile.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectileVelocity);
     }
 
 	internal void TakeDamage(float damage) {
