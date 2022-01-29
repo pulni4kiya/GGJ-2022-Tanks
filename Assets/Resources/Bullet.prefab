@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 1
   speed: 5
-  initialSegments: 10
+  initialSegments: 3
   controllable: 0
   snakeSegmentPrefab: {fileID: 2685103774045635054, guid: 472ea57af0afd1141ab127b773955498, type: 3}
 --- !u!136 &4060287844536513397

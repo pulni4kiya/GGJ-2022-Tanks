@@ -12,6 +12,7 @@ public class BulletController : MonoBehaviour {
 	public GameObject snakeSegmentPrefab;
 
 	private int segmentsCount;
+
 	private bool isDead = false;
 
 	private new Rigidbody rigidbody;
@@ -46,6 +47,10 @@ public class BulletController : MonoBehaviour {
 		}
 
 		this.UpdateSegmentPositions();
+	}
+
+	public void Extend(int segmentCount) {
+		this.segmentsToSpawn += segmentCount;
 	}
 
 	private void FadeToDeath() {
@@ -136,6 +141,13 @@ public class BulletController : MonoBehaviour {
 		}
 
 		this.isDead = true;
+	}
+
+	private void OnTriggerEnter(Collider other) {
+		var pickup = other.GetComponentInParent<IPickup>();
+		if (pickup != null) {
+			pickup.ApplyPickup(this);
+		}
 	}
 
 	private struct SegmentState {

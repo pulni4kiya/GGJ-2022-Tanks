@@ -71,7 +71,11 @@ public class TankController : MonoBehaviourPun {
         }
 	}
 
-    private void SpawnBoom(Vector3 position, float scale) {
+	public void Heal(float healAmount) {
+		health = Mathf.Clamp(health + healAmount, 0, maxHealth);
+	}
+
+	private void SpawnBoom(Vector3 position, float scale) {
         var explosion = Instantiate(
             explosionPrefab,
             position,
@@ -81,4 +85,12 @@ public class TankController : MonoBehaviourPun {
         explosion.transform.localScale *= scale;
         Destroy(explosion, 5);
     }
+
+    // TODO: Networking for this?
+	private void OnTriggerEnter(Collider other) {
+		var pickup = other.GetComponentInParent<IPickup>();
+		if (pickup != null) {
+			pickup.ApplyPickup(this);
+		}
+	}
 }
