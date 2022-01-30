@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Wall
   m_Shader: {fileID: -6465566751694194690, guid: a67dce125f7b38944abdaafb80fb1ed6, type: 3}
-  m_ShaderKeywords:
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -110,7 +110,7 @@ Material:
     - Color_4d57962cbca04ce490e42940350249b8: {r: 0.54901963, g: 0.47273955, b: 0.1607843, a: 1}
     - Vector3_075c28d796c64d069999348df20b2ccf: {r: 0.2, g: 0.2, b: 0, a: 0}
     - _BaseColor: {r: 0.48521677, g: 0.5471698, b: 0.16260235, a: 1}
-    - _Color: {r: 0.42352942, g: 0.62352943, b: 0.7372549, a: 1}
+    - _Color: {r: 0.8980392, g: 0.5803922, b: 0.7607843, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   version: 4
