@@ -35,6 +35,7 @@ public class TankController : MonoBehaviourPun {
 		foreach (var rend in this.GetComponentsInChildren<Renderer>()) {
 			rend.material = tankMat;
 		}
+		this.color = tankMat.color;
 
         if (!IsMine) {
             GetComponentInChildren<UnityEngine.InputSystem.PlayerInput>().enabled = false;
