@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
         } else if (singlePlayer) {
             var player = Instantiate(playerPrefab, spawnLocation1.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
+            player = Instantiate(playerPrefab, spawnLocation2.position, Quaternion.identity);
+            player.GetComponent<TankController>().IsMine = true;
         }
 
         foreach (var button in mainMenuButtons) {
