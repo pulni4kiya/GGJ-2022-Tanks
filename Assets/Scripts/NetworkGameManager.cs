@@ -11,7 +11,7 @@ public class NetworkGameManager : MonoBehaviourPunCallbacks {
     public GameManager gameManager;
 
     void Start() {
-        PhotonNetwork.SerializationRate = 30;
+        PhotonNetwork.SerializationRate = 20;
     }
 
     public override void OnLeftRoom() {

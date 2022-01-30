@@ -43,6 +43,18 @@ public class PlayerActionEvents : MonoBehaviour
         fireAction.performed += OnFire;
     }
 
+    void OnDestroy() {
+        moveAction.started -= OnMove;
+        moveAction.performed -= OnMove;
+        moveAction.canceled -= OnMove;
+
+        lookAction.started -= OnLook;
+        lookAction.performed -= OnLook;
+        lookAction.canceled -= OnLook;
+
+        fireAction.performed -= OnFire;
+    }
+
     private void OnEnable() {
         OnMoveInput?.Invoke(newMovementInput);
         OnLookInput?.Invoke(newLookInput);

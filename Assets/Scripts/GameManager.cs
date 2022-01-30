@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviourPunCallbacks {
     public static GameManager Instance {
         get;
         private set;
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient) {
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1) {
             newGameButton.gameObject.SetActive(true);
             newGameButton.onClick.AddListener(RestartLevel);
         } else {
@@ -82,13 +82,9 @@ public class GameManager : MonoBehaviour {
         } else if (singlePlayer) {
             var player = Instantiate(playerPrefab, spawnLocation1.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
-            var input = player.GetComponentInChildren<PlayerInput>();
-            input.user.ActivateControlScheme(input.actions.controlSchemes[0]);
-            
+
             player = Instantiate(playerPrefab, spawnLocation2.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
-            input = player.GetComponentInChildren<PlayerInput>();
-            input.user.ActivateControlScheme(input.actions.controlSchemes[1]);
         }
 
         mainMenuButton.onClick.AddListener(GoToMenu);
@@ -160,5 +156,9 @@ public class GameManager : MonoBehaviour {
         endScreen.SetActive(true);
         winText.SetActive(false);
         defeatText.SetActive(true);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer) {
+        newGameButton.gameObject.SetActive(false);
     }
 }

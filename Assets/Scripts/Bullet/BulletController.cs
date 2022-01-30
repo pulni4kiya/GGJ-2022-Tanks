@@ -94,7 +94,10 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	private void OnDestroy() {
-		GameObject.Destroy(this.collider.gameObject);
+		if (this.collider) {
+			GameObject.Destroy(this.collider.gameObject);
+		}
+
 		if (controllable) {
 			GameManager.Instance.playerInputs.Player.MoveSnake.performed -= this.OnMoveSnakeInput;
 		}
