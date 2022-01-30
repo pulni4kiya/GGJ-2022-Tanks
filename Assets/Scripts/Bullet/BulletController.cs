@@ -95,6 +95,9 @@ public class BulletController : MonoBehaviourPun {
 
 	private void OnDestroy() {
 		GameObject.Destroy(this.collider.gameObject);
+		if (controllable) {
+			GameManager.Instance.playerInputs.Player.MoveSnake.performed -= this.OnMoveSnakeInput;
+		}
 	}
 
 	private void UpdateMeshCollider() {
@@ -204,6 +207,7 @@ public class BulletController : MonoBehaviourPun {
 		}
 
 		this.isDead = true;
+		this.fadeTime = this.trail.time;
 	}
 
 	private void OnTriggerEnter(Collider other) {

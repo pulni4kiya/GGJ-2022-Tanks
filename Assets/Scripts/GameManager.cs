@@ -28,7 +28,12 @@ public class GameManager : MonoBehaviour {
     public Button mainMenuButton;
     public Button newGameButton;
 
-    private bool singlePlayer = true;
+	public Material wallMaterial;
+	public Material groundMaterial;
+
+	public List<Color> colors;
+
+	private bool singlePlayer = true;
 
     public bool GameEnded {
         get;
@@ -50,6 +55,10 @@ public class GameManager : MonoBehaviour {
 
 		playerInputs = new PlayerInputs();
 		playerInputs.Player.MoveSnake.Enable();
+
+		this.colors.Shuffle();
+
+		this.wallMaterial.color = this.colors[0];
 	}
 
     // Start is called before the first frame update
@@ -70,8 +79,13 @@ public class GameManager : MonoBehaviour {
         } else if (singlePlayer) {
             var player = Instantiate(playerPrefab, spawnLocation1.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
+            var input = player.GetComponentInChildren<PlayerInput>();
+            input.user.ActivateControlScheme(input.actions.controlSchemes[0]);
+            
             player = Instantiate(playerPrefab, spawnLocation2.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
+            input = player.GetComponentInChildren<PlayerInput>();
+            input.user.ActivateControlScheme(input.actions.controlSchemes[1]);
         }
 
         mainMenuButton.onClick.AddListener(GoToMenu);
