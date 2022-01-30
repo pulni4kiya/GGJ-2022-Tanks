@@ -25,7 +25,9 @@ public class TankController : MonoBehaviourPun {
 
     private Rigidbody rigidBody;
 
-    void Start() {
+	private GameObject lastProjectile;
+
+	void Start() {
         rigidBody = GetComponent<Rigidbody>();
 
         if (!IsMine) {
@@ -45,6 +47,10 @@ public class TankController : MonoBehaviourPun {
             return;
         }
 
+		if (this.lastProjectile != null) {
+			return;
+		}
+
         var projectile = GameManager.Instance.InstantiateObject(
             projectilePrefab,
             projectileSpawnLocation.position,
@@ -54,6 +60,8 @@ public class TankController : MonoBehaviourPun {
 		var bulletController = projectile.GetComponent<BulletController>();
 		bulletController.controllable = true;
 		bulletController.Init(projectileSpawnLocation.position, this.transform.forward);
+
+		this.lastProjectile = projectile;
     }
 
     public void NetTakeDamage(float damage, Vector3 hitLocation) {
