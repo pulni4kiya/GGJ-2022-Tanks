@@ -10,10 +10,19 @@ public class MenuManager : MonoBehaviourPunCallbacks {
     public Text statusLabel;
     public Button connectButton;
 
+    public GameObject mainMenu;
+    public GameObject privateGameMenu;
+
+    public Button privateRoomButton;
+    public InputField roomNameInput;
+    public Button createRoomButton;
+    public Button cancelPrivateRoomButton;
+
     // Start is called before the first frame update
     void Start() {
         PhotonNetwork.AutomaticallySyncScene = true;
 
+        privateRoomButton.enabled = false;
         connectButton.enabled = false;
         connectButton.onClick.AddListener(TryToJoinRandomRoom);
 
@@ -24,6 +33,36 @@ public class MenuManager : MonoBehaviourPunCallbacks {
         } else {
             OnConnectedToMaster();
         }
+
+        privateRoomButton.onClick.AddListener(() => {
+            mainMenu.SetActive(false);
+            privateGameMenu.SetActive(true);
+
+            roomNameInput.text = "";
+            roomNameInput.enabled = true;
+            createRoomButton.enabled = false;
+
+            if (PhotonNetwork.InRoom) {
+                PhotonNetwork.LeaveRoom();
+            }
+        });
+        cancelPrivateRoomButton.onClick.AddListener(() => {
+            if (PhotonNetwork.InRoom) {
+                PhotonNetwork.LeaveRoom();
+            }
+
+            mainMenu.SetActive(true);
+            privateGameMenu.SetActive(false);
+        });
+
+        roomNameInput.onValueChanged.AddListener(text => createRoomButton.enabled = text.Length > 0);
+        createRoomButton.onClick.AddListener(() => {
+            if (roomNameInput.text.Length > 0) {
+                JoinOrCreateRoom(roomNameInput.text);
+            } else {
+                Debug.Log("Cannot create room with no name");
+            }
+        });
     }
 
     // Update is called once per frame
@@ -36,6 +75,7 @@ public class MenuManager : MonoBehaviourPunCallbacks {
 
         statusLabel.text = "Connected to server, please join room";
         connectButton.enabled = true;
+        privateRoomButton.enabled = true;
     }
 
     private void TryToJoinRandomRoom() {
@@ -56,8 +96,14 @@ public class MenuManager : MonoBehaviourPunCallbacks {
         connectButton.enabled = true;
     }
 
-    private void CreateRoom() {
-        PhotonNetwork.CreateRoom(null, roomOptions: new RoomOptions {
+    private void JoinOrCreateRoom(string name) {
+        PhotonNetwork.JoinOrCreateRoom(name, new RoomOptions {
+            MaxPlayers = 2
+        }, TypedLobby.Default);
+    }
+
+    private void CreateRoom(string name = null) {
+        PhotonNetwork.CreateRoom(name, roomOptions: new RoomOptions {
             MaxPlayers = 2
         });
     }
@@ -67,6 +113,9 @@ public class MenuManager : MonoBehaviourPunCallbacks {
 
         var room = PhotonNetwork.CurrentRoom;
 
+        createRoomButton.enabled = false;
+        roomNameInput.enabled = false;
+
         if (room.PlayerCount == 1) {
             statusLabel.text = "In lobby. Waiting for second player";
         } else if (room.PlayerCount == 2) {
@@ -75,6 +124,10 @@ public class MenuManager : MonoBehaviourPunCallbacks {
             statusLabel.text = "More than two players in room";
             PhotonNetwork.LeaveRoom();
         }
+    }
+
+    public override void OnLeftRoom() {
+        Debug.Log("Left a room");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer) {

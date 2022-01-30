@@ -70,8 +70,13 @@ public class GameManager : MonoBehaviour {
         } else if (singlePlayer) {
             var player = Instantiate(playerPrefab, spawnLocation1.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
+            var input = player.GetComponentInChildren<PlayerInput>();
+            input.user.ActivateControlScheme(input.actions.controlSchemes[0]);
+            
             player = Instantiate(playerPrefab, spawnLocation2.position, Quaternion.identity);
             player.GetComponent<TankController>().IsMine = true;
+            input = player.GetComponentInChildren<PlayerInput>();
+            input.user.ActivateControlScheme(input.actions.controlSchemes[1]);
         }
 
         foreach (var button in mainMenuButtons) {
