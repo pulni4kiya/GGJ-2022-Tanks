@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f72b4b1dbcad2249a64ef75f977e296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAmount: 10
+  healAmount: 5
   segmentCount: 3
 --- !u!114 &-8234803375996991109
 MonoBehaviour:

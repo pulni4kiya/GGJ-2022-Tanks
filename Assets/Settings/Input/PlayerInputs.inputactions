@@ -209,6 +209,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "2ca3ce8f-37c7-4fe9-b023-51ba69c25e0a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "c80f2759-4ad9-413b-b216-1eca88a6bddc",
                     "path": "Dpad",

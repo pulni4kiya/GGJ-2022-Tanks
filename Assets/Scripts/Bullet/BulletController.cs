@@ -205,7 +205,7 @@ public class BulletController : MonoBehaviourPun {
 		var tank = collision.collider.GetComponent<TankController>();
 
 		if (tank != null) {
-			var damage = Mathf.Pow(this.segmentsCount, 1.5f);
+			var damage = Mathf.Pow(this.segmentsCount * 1.2f, 1.5f);
 			tank.NetTakeDamage(damage, collisionLocation);
 		}
 
