@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3825,6 +3825,8 @@ MonoBehaviour:
   roomNameInput: {fileID: 1128044801}
   createRoomButton: {fileID: 1905253371}
   cancelPrivateRoomButton: {fileID: 1794979354}
+  localGameButton: {fileID: 2059238302}
+  exitGameButton: {fileID: 1112749159}
 --- !u!4 &301158773
 Transform:
   m_ObjectHideFlags: 0

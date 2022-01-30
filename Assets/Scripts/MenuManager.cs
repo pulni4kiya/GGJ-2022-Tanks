@@ -18,6 +18,9 @@ public class MenuManager : MonoBehaviourPunCallbacks {
     public Button createRoomButton;
     public Button cancelPrivateRoomButton;
 
+    public Button localGameButton;
+    public Button exitGameButton;
+
     // Start is called before the first frame update
     void Start() {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -33,6 +36,11 @@ public class MenuManager : MonoBehaviourPunCallbacks {
         } else {
             OnConnectedToMaster();
         }
+
+        localGameButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Game");
+        });
 
         privateRoomButton.onClick.AddListener(() => {
             mainMenu.SetActive(false);
@@ -62,6 +70,11 @@ public class MenuManager : MonoBehaviourPunCallbacks {
             } else {
                 Debug.Log("Cannot create room with no name");
             }
+        });
+
+        localGameButton.onClick.AddListener(() =>
+        {
+            Application.Quit();
         });
     }
 
