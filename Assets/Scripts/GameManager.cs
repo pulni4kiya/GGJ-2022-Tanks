@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour {
 
 	public PlayerInputs playerInputs;
 
-    public GameObject victoryScreen;
-    public GameObject defeatScreen;
+    public GameObject endScreen;
+    public GameObject winText;
+    public GameObject defeatText;
 
-    public List<Button> mainMenuButtons;
+    public Button mainMenuButton;
+    public Button newGameButton;
 
 	public Material wallMaterial;
 	public Material groundMaterial;
@@ -64,6 +66,13 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient) {
+            newGameButton.gameObject.SetActive(true);
+            newGameButton.onClick.AddListener(RestartLevel);
+        } else {
+            newGameButton.gameObject.SetActive(false);
+        }
+
         if (PhotonNetwork.InRoom) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation1.position, Quaternion.identity);
@@ -82,18 +91,30 @@ public class GameManager : MonoBehaviour {
             input.user.ActivateControlScheme(input.actions.controlSchemes[1]);
         }
 
-        foreach (var button in mainMenuButtons) {
-            button.onClick.AddListener(BackToMenu);
-        }
+        mainMenuButton.onClick.AddListener(GoToMenu);
     }
 
-    private void BackToMenu() {
-        SceneManager.LoadScene("Menu");
+    void OnDestroy() {
+        mainMenuButton.onClick.RemoveListener(GoToMenu);
+
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient) {
+            newGameButton.onClick.RemoveListener(RestartLevel);
+        }
+
+        Instance = null;
     }
 
     // Update is called once per frame
     void Update() {
 
+    }
+
+    private void GoToMenu() {
+        SceneManager.LoadScene("Menu");
+    }
+
+    private void RestartLevel() {
+        PhotonNetwork.LoadLevel("RestartLoading");
     }
 
 	public Material GetTankMaterial() {
@@ -128,18 +149,16 @@ public class GameManager : MonoBehaviour {
     public void DeclareVictory() {
         GameEnded = true;
 
-        victoryScreen.SetActive(true);
-        defeatScreen.SetActive(false);
-
-        PhotonNetwork.LeaveRoom();
+        endScreen.SetActive(true);
+        winText.SetActive(true);
+        defeatText.SetActive(false);
     }
 
     public void DeclareDefeat() {
         GameEnded = true;
 
-        defeatScreen.SetActive(true);
-        victoryScreen.SetActive(false);
-
-        PhotonNetwork.LeaveRoom();
+        endScreen.SetActive(true);
+        winText.SetActive(false);
+        defeatText.SetActive(true);
     }
 }
