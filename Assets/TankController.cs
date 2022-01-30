@@ -29,8 +29,7 @@ public class TankController : MonoBehaviourPun {
         rigidBody = GetComponent<Rigidbody>();
 
         if (!IsMine) {
-            GetComponent<TankMovement>().enabled = false;
-            GetComponent<TankFacing>().enabled = false;
+            GetComponentInChildren<UnityEngine.InputSystem.PlayerInput>().enabled = false;
             return;
         }
 
