@@ -188,9 +188,11 @@ public class BulletController : MonoBehaviourPun {
 		}
 	}
 
-	public void Init(Vector3 position, Vector3 forward) {
+	public void Init(Vector3 position, Vector3 forward, Color color) {
+		this.trail = this.GetComponent<TrailRenderer>();
 		this.moveDirection = forward;
 		this.headPosition = position;
+		this.trail.startColor = this.trail.endColor = color;
 	}
 
 	private void OnCollisionEnter(Collision collision) {

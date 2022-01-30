@@ -26,6 +26,7 @@ public class TankController : MonoBehaviourPun {
     private Rigidbody rigidBody;
 
 	private GameObject lastProjectile;
+	private Color color;
 
 	void Start() {
         rigidBody = GetComponent<Rigidbody>();
@@ -41,6 +42,7 @@ public class TankController : MonoBehaviourPun {
 		foreach (var rend in this.GetComponentsInChildren<Renderer>()) {
 			rend.material = tankMat;
 		}
+		this.color = tankMat.color;
     }
 
     void OnDestroy() {
@@ -64,7 +66,7 @@ public class TankController : MonoBehaviourPun {
 
 		var bulletController = projectile.GetComponent<BulletController>();
 		bulletController.controllable = true;
-		bulletController.Init(projectileSpawnLocation.position, this.transform.forward);
+		bulletController.Init(projectileSpawnLocation.position, this.transform.forward, this.color);
 
 		this.lastProjectile = projectile;
     }
