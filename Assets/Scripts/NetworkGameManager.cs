@@ -15,11 +15,9 @@ public class NetworkGameManager : MonoBehaviourPunCallbacks {
     }
 
     public override void OnLeftRoom() {
-        if (gameManager.GameEnded) {
-            return;
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient) {
+            SceneManager.LoadScene("Menu");
         }
-
-        SceneManager.LoadScene("Menu");
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer) {
