@@ -1,5 +1,5 @@
 {
-    "name": "GGJ-2022-Tanks-2",
+    "name": "PlayerInputs",
     "maps": [
         {
             "name": "Player",
@@ -209,17 +209,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "969e567f-9754-4d0f-b1e3-2b84eb25eaf4",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "MoveSnake",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "WASD",
                     "id": "c80f2759-4ad9-413b-b216-1eca88a6bddc",
                     "path": "Dpad",
@@ -270,6 +259,61 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "MoveSnake",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right Stick Composite",
+                    "id": "c26e6f14-865e-4f13-971f-19865fb32c47",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveSnake",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1ecbbb7f-d6c1-47df-91e0-73fa11cd687e",
+                    "path": "<Gamepad>/rightStick/up",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=1.401298E-45,max=1)",
+                    "groups": "Gamepad",
+                    "action": "MoveSnake",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "1f857b2b-d556-41f8-b64c-9d3a1825f8df",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=-1,max=-0.125)",
+                    "groups": "Gamepad",
+                    "action": "MoveSnake",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "a95404d2-ff7f-4ec4-b64d-541e16db9e13",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=-1,max=-0.125)",
+                    "groups": "Gamepad",
+                    "action": "MoveSnake",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "cf5349e1-74d6-4faa-9fbf-e1bca7872fc7",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=1.401298E-45,max=1)",
+                    "groups": "Gamepad",
                     "action": "MoveSnake",
                     "isComposite": false,
                     "isPartOfComposite": true
