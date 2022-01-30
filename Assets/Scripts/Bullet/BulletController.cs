@@ -29,6 +29,10 @@ public class BulletController : MonoBehaviourPun {
 
 	private float timeSinceLastMove = 0f;
 
+	private MeshCollider collider;
+	private Mesh colliderMesh;
+	private Vector3[] trailPositions = new Vector3[1000];
+
 	private float Size {
 		get {
 			return this.snakeSegmentPrefab.GetComponentInChildren<Renderer>().bounds.size.x;
@@ -36,6 +40,13 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	private void Start() {
+		this.collider = this.GetComponentInChildren<MeshCollider>();
+		this.colliderMesh = new Mesh();
+		this.collider.sharedMesh = this.colliderMesh;
+
+		this.collider.transform.parent = null;
+		this.collider.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+
 		this.rigidbody = this.GetComponent<Rigidbody>();
 		this.trail = this.GetComponent<TrailRenderer>();
 		this.segmentsToSpawn = this.initialSegments;
@@ -62,12 +73,15 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	private void FixedUpdate() {
+		this.UpdateMeshCollider();
+
 		if (!controllable || GameManager.Instance.GameEnded) {
 			return;
 		}
 
 		if (isDead) {
 			this.rigidbody.velocity = Vector3.zero;
+			this.rigidbody.angularVelocity = Vector3.zero;
 			return;
 		}
 
@@ -77,6 +91,18 @@ public class BulletController : MonoBehaviourPun {
 		}
 
 		//this.UpdateSegmentPositions2();
+	}
+
+	private void OnDestroy() {
+		GameObject.Destroy(this.collider.gameObject);
+	}
+
+	private void UpdateMeshCollider() {
+		var count = this.trail.GetPositions(trailPositions);
+		if (count > 6) {
+			this.GenerateMesh(this.colliderMesh, trailPositions, 0, count - 4, -1f);
+			this.collider.sharedMesh = this.colliderMesh;
+		}
 	}
 
 	private void UpdateSegmentPositions2() {
@@ -177,6 +203,38 @@ public class BulletController : MonoBehaviourPun {
 		if (pickup != null) {
 			pickup.ApplyPickup(this);
 		}
+	}
+
+	private void GenerateMesh(Mesh mesh, Vector3[] vertices, int start, int count, float yOffset) {
+		mesh.Clear();
+
+		var verts = new List<Vector3>();
+		for (int i = start; i < start + count; i++) {
+			verts.Add(vertices[i]);
+			verts.Add(vertices[i] + Vector3.up * yOffset);
+		}
+		mesh.SetVertices(verts);
+
+		var tris = new List<int>();
+		var max = verts.Count - 2;
+		for (int i = 0; i < max; i += 2) {
+			tris.Add((i + 0) % verts.Count);
+			tris.Add((i + 1) % verts.Count);
+			tris.Add((i + 2) % verts.Count);
+			tris.Add((i + 1) % verts.Count);
+			tris.Add((i + 2) % verts.Count);
+			tris.Add((i + 3) % verts.Count);
+			tris.Add((i + 0) % verts.Count);
+			tris.Add((i + 2) % verts.Count);
+			tris.Add((i + 1) % verts.Count);
+			tris.Add((i + 1) % verts.Count);
+			tris.Add((i + 3) % verts.Count);
+			tris.Add((i + 2) % verts.Count);
+		}
+		mesh.SetTriangles(tris, 0);
+
+		mesh.RecalculateNormals();
+		mesh.RecalculateTangents();
 	}
 
 	private struct SegmentState {
