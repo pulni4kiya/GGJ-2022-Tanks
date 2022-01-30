@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7905510704485479467}
   - component: {fileID: 7905510704485479464}
   - component: {fileID: 7905510704485479465}
-  - component: {fileID: 7905510704485479470}
   - component: {fileID: 7905510704485479471}
+  - component: {fileID: 5496257945904386465}
   m_Layer: 0
   m_Name: P_Wall
   m_TagString: Untagged
@@ -83,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7905510704485479470
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7905510704485479468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7905510704485479471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +98,17 @@ MonoBehaviour:
   randomScale: 0.25
   randomRotation: 15
   randomHeight: 1
+--- !u!136 &5496257945904386465
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905510704485479468}
+  m_Material: {fileID: 13400000, guid: 9584b5a6f71a9264eb7c57be3193075b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
