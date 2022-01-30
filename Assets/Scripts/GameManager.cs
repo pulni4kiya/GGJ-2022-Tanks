@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
 
 	public List<Color> colors;
 
+	public Material[] tankMaterials;
+	private int tankIndex;
+
 	private bool singlePlayer = true;
 
     public bool GameEnded {
@@ -93,7 +96,11 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public GameObject InstantiateObject(
+	public Material GetTankMaterial() {
+		return this.tankMaterials[this.tankIndex++];
+	}
+
+	public GameObject InstantiateObject(
         GameObject original,
         Vector3 position,
         Quaternion rotation
