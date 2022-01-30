@@ -42,11 +42,6 @@ public class TankController : MonoBehaviourPun {
         }
 
         actionEvents.OnFireInput += Shoot;
-
-		var tankMat = GameManager.Instance.GetTankMaterial();
-		foreach (var rend in this.GetComponentsInChildren<Renderer>()) {
-			rend.material = tankMat;
-		}
     }
 
     void OnDestroy() {
