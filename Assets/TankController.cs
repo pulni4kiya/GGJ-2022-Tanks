@@ -74,7 +74,7 @@ public class TankController : MonoBehaviourPun {
     }
 
     [PunRPC]
-	private void TakeDamage(float damage, Vector3 hitLocation) {
+	public void TakeDamage(float damage, Vector3 hitLocation) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health > 0) {
@@ -91,7 +91,7 @@ public class TankController : MonoBehaviourPun {
 	}
 
     [PunRPC]
-	private void Heal(float healAmount) {
+	public void Heal(float healAmount) {
 		health = Mathf.Clamp(health + healAmount, 0, maxHealth);
 	}
 
@@ -107,6 +107,8 @@ public class TankController : MonoBehaviourPun {
     }
 
 	private void OnTriggerEnter(Collider other) {
+        Debug.Log($"OnTriggerEnter tank {IsMine}");
+
         if (!IsMine) {
             return;
         }

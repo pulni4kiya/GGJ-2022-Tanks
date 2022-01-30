@@ -31,10 +31,15 @@ public class PickupSpawner : MonoBehaviour
 
     public void Spawn() {
         if (spawnedPickup == false) {
-            spawnedPickup = GameManager.Instance.InstantiateObject(prefabToSpawn.gameObject, myTransform.position, myTransform.rotation).GetComponent<FoodPickup>();
+            spawnedPickup = GameManager.Instance.InstantiateObject(
+                prefabToSpawn.gameObject,
+                myTransform.position,
+                myTransform.rotation
+            ).GetComponent<FoodPickup>();
         }
 
         spawnedPickup.NetAppear();
+        // spawnedPickup.NetPickupCollected();
 
         spawnedPickup.OnPickupCollected += ReceiveOnPickupCollected;
         isPickupNotYetCollected = true;

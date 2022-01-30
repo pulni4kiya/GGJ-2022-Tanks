@@ -110,7 +110,7 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	public void NetExtend(int segmentCount) {
-		if (PhotonNetwork.InLobby) {
+		if (PhotonNetwork.InRoom) {
 			photonView.RPC("Extend", RpcTarget.All, new object[] { segmentCount });
 		} else {
 			Extend(segmentCount);
@@ -118,7 +118,7 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	[PunRPC]
-	private void Extend(int segmentCount) {
+	public void Extend(int segmentCount) {
 		this.segmentsToSpawn += segmentCount;
 		this.segmentsCount += segmentCount;
 	}
@@ -207,6 +207,10 @@ public class BulletController : MonoBehaviourPun {
 	}
 
 	private void OnTriggerEnter(Collider other) {
+		if (!controllable) {
+			return;
+		}
+
 		var pickup = other.GetComponentInParent<IPickup>();
 		if (pickup != null) {
 			pickup.ApplyPickup(this);

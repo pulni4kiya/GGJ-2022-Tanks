@@ -24,16 +24,16 @@ public class FoodPickup : MonoBehaviourPun, IPickup {
 	}
 
 	public void NetAppear() {
-		if (PhotonNetwork.InLobby) {
-			photonView.RPC("Appear", RpcTarget.All);
+		if (PhotonNetwork.InRoom) {
+			photonView.RPC("Appear", RpcTarget.AllViaServer);
 		} else {
 			Appear();
 		}
 	}
 
 	public void NetPickupCollected() {
-		if (PhotonNetwork.InLobby) {
-			photonView.RPC("PickupCollected", RpcTarget.All);
+		if (PhotonNetwork.InRoom) {
+			photonView.RPC(nameof(PickupCollected), RpcTarget.AllViaServer);
 		} else {
 			PickupCollected();
 		}
