@@ -57,7 +57,7 @@ public class TankController : MonoBehaviourPun {
 		bulletController.Init(projectileSpawnLocation.position, this.transform.forward);
     }
 
-    public void ControlledTakeDamage(float damage, Vector3 hitLocation) {
+    public void NetTakeDamage(float damage, Vector3 hitLocation) {
         if (PhotonNetwork.InRoom) {
             photonView.RPC("TakeDamage", RpcTarget.All, new object[] { damage, hitLocation });
         } else {
@@ -65,8 +65,16 @@ public class TankController : MonoBehaviourPun {
         }
     }
 
+    public void NetHeal(float healAmount) {
+        if (PhotonNetwork.InRoom) {
+            photonView.RPC("Heal", RpcTarget.All, new object[] { healAmount });
+        } else {
+            Heal(healAmount);
+        }
+    }
+
     [PunRPC]
-	public void TakeDamage(float damage, Vector3 hitLocation) {
+	private void TakeDamage(float damage, Vector3 hitLocation) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         if (health > 0) {
@@ -83,7 +91,7 @@ public class TankController : MonoBehaviourPun {
 	}
 
     [PunRPC]
-	public void Heal(float healAmount) {
+	private void Heal(float healAmount) {
 		health = Mathf.Clamp(health + healAmount, 0, maxHealth);
 	}
 

@@ -26,7 +26,7 @@ public class PickupManager : MonoBehaviour
         SpawnPickups(randomAmount);
     }
 
-    public void SpawnPickups(int amount) {
+    private void SpawnPickups(int amount) {
         Debug.Assert(amount < spawners.Count, $"Attempting to spawn more pickups than the available spawners.", this);
 
         List<PickupSpawner> shuffledSpawners = new List<PickupSpawner>(spawners);
@@ -40,7 +40,7 @@ public class PickupManager : MonoBehaviour
         }
     }
 
-    public void OnPickupCollected() {
+    private void OnPickupCollected() {
         if (GetAreAllPickupsCollected()) {
             SpawnRandomAmount();
         }

@@ -83,8 +83,16 @@ public class BulletController : MonoBehaviourPun {
 
 	}
 
+	public void NetExtend(int segmentCount) {
+		if (PhotonNetwork.InLobby) {
+			photonView.RPC("Extend", RpcTarget.All, new object[] { segmentCount });
+		} else {
+			Extend(segmentCount);
+		}
+	}
+
 	[PunRPC]
-	public void Extend(int segmentCount) {
+	private void Extend(int segmentCount) {
 		this.segmentsToSpawn += segmentCount;
 		this.segmentsCount += segmentCount;
 	}
@@ -166,7 +174,7 @@ public class BulletController : MonoBehaviourPun {
 
 		if (tank != null) {
 			var damage = Mathf.Pow(this.segmentsCount, 1.5f);
-			tank.ControlledTakeDamage(damage, collisionLocation);
+			tank.NetTakeDamage(damage, collisionLocation);
 		}
 
 		this.isDead = true;

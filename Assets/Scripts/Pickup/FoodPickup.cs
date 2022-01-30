@@ -11,26 +11,31 @@ public class FoodPickup : MonoBehaviourPun, IPickup {
 
 	public void ApplyPickup(TankController tank) {
 		if (enabled) {
-			if (PhotonNetwork.InLobby) {
-				tank.photonView.RPC("Heal", RpcTarget.All, new object[] { healAmount });
-				this.photonView.RPC("PickupCollected", RpcTarget.All);
-			} else {
-				tank.Heal(this.healAmount);
-				PickupCollected();
-			}
+			tank.NetHeal(this.healAmount);
+			NetPickupCollected();
 		}
 	}
 
 	public void ApplyPickup(BulletController bullet) {
 		if (enabled) {
-			if (PhotonNetwork.InLobby) {
-				bullet.photonView.RPC("Extend", RpcTarget.All, new object[] { segmentCount });
-				this.photonView.RPC("PickupCollected", RpcTarget.All);
-			} else {
-				bullet.Extend(this.segmentCount);
-				PickupCollected();
-			}
+			bullet.NetExtend(this.segmentCount);
+			NetPickupCollected();
+		}
+	}
 
+	public void NetAppear() {
+		if (PhotonNetwork.InLobby) {
+			photonView.RPC("Appear", RpcTarget.All);
+		} else {
+			Appear();
+		}
+	}
+
+	public void NetPickupCollected() {
+		if (PhotonNetwork.InLobby) {
+			photonView.RPC("PickupCollected", RpcTarget.All);
+		} else {
+			PickupCollected();
 		}
 	}
 
@@ -45,7 +50,7 @@ public class FoodPickup : MonoBehaviourPun, IPickup {
 		OnPickupCollected?.Invoke();
 	}
 
-	public void Hide() {
+	private void Hide() {
 		gameObject.SetActive(false);
 	}
 }

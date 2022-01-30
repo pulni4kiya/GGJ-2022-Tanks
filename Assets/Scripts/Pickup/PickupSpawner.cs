@@ -34,11 +34,7 @@ public class PickupSpawner : MonoBehaviour
             spawnedPickup = GameManager.Instance.InstantiateObject(prefabToSpawn.gameObject, myTransform.position, myTransform.rotation).GetComponent<FoodPickup>();
         }
 
-        if (PhotonNetwork.InLobby) {
-            spawnedPickup.photonView.RPC("Appear", RpcTarget.All);
-        } else {
-            spawnedPickup.Appear();
-        }
+        spawnedPickup.NetAppear();
 
         spawnedPickup.OnPickupCollected += ReceiveOnPickupCollected;
         isPickupNotYetCollected = true;

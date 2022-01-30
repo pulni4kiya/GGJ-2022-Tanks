@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviourPunCallbacks {
+public class GameManager : MonoBehaviour {
     public static GameManager Instance {
         get;
         private set;
@@ -52,8 +52,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     // Start is called before the first frame update
     void Start() {
-        PhotonNetwork.SerializationRate = 30;
-
         if (PhotonNetwork.InRoom) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation1.position, Quaternion.identity);
@@ -102,16 +100,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         } else {
             Debug.LogError("Could not destroy object as we're not connected to the server");
         }
-    }
-
-    public override void OnLeftRoom() {
-        if (!GameEnded) {
-            SceneManager.LoadScene("Menu");
-        }
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer) {
-        Debug.Log("A player has left the room");
     }
 
     public void DeclareVictory() {
