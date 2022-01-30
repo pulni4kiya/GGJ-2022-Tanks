@@ -30,17 +30,17 @@ public class TankController : MonoBehaviourPun {
 	void Start() {
         rigidBody = GetComponent<Rigidbody>();
 
+		var tankMat = GameManager.Instance.GetTankMaterial();
+		foreach (var rend in this.GetComponentsInChildren<Renderer>()) {
+			rend.material = tankMat;
+		}
+
         if (!IsMine) {
             GetComponentInChildren<UnityEngine.InputSystem.PlayerInput>().enabled = false;
             return;
         }
 
         actionEvents.OnFireInput += Shoot;
-
-		var tankMat = GameManager.Instance.GetTankMaterial();
-		foreach (var rend in this.GetComponentsInChildren<Renderer>()) {
-			rend.material = tankMat;
-		}
     }
 
     void OnDestroy() {

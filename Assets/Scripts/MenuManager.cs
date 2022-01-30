@@ -72,7 +72,7 @@ public class MenuManager : MonoBehaviourPunCallbacks {
             }
         });
 
-        localGameButton.onClick.AddListener(() =>
+        exitGameButton.onClick.AddListener(() =>
         {
             Application.Quit();
         });
