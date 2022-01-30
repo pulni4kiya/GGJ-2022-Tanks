@@ -204,6 +204,7 @@ public class BulletController : MonoBehaviourPun {
 		}
 
 		this.isDead = true;
+		this.fadeTime = this.trail.time;
 	}
 
 	private void OnTriggerEnter(Collider other) {

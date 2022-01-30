@@ -26,7 +26,12 @@ public class GameManager : MonoBehaviour {
 
     public List<Button> mainMenuButtons;
 
-    private bool singlePlayer = true;
+	public Material wallMaterial;
+	public Material groundMaterial;
+
+	public List<Color> colors;
+
+	private bool singlePlayer = true;
 
     public bool GameEnded {
         get;
@@ -48,6 +53,10 @@ public class GameManager : MonoBehaviour {
 
 		playerInputs = new PlayerInputs();
 		playerInputs.Player.MoveSnake.Enable();
+
+		this.colors.Shuffle();
+
+		this.wallMaterial.color = this.colors[0];
 	}
 
     // Start is called before the first frame update
